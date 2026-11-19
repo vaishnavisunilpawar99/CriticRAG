@@ -1,0 +1,202 @@
+[
+  {
+    "id": "exp_01",
+    "category": "Arithmetic & Financial",
+    "question": "If an investment grows from $80 to $120 over 3 years, what is the total percentage growth?",
+    "raw_baseline_answer": "The investment grew from $80 to $120, which is an increase of 65%.",
+    "ground_truth": "The investment grew from $80 to $120, which is an increase of 50.0%.",
+    "evidence": "Growth calculation: (120 - 80) / 80 * 100 = 50%",
+    "baseline_hallucinated": true,
+    "error_type": "ARITHMETIC_ERROR"
+  },
+  {
+    "id": "exp_02",
+    "category": "Arithmetic & Geometry",
+    "question": "Calculate the total cost of 15 components priced at $35 each.",
+    "raw_baseline_answer": "The total cost for 15 components is 15 * 35 = 620.",
+    "ground_truth": "The total cost for 15 components is 15 * 35 = 525.",
+    "evidence": "Arithmetic multiplication: 15 * 35 = 525",
+    "baseline_hallucinated": true,
+    "error_type": "ARITHMETIC_ERROR"
+  },
+  {
+    "id": "exp_03",
+    "category": "Historical & Temporal",
+    "question": "In what year was the Eiffel Tower completed and opened to the public?",
+    "raw_baseline_answer": "The Eiffel Tower was constructed in Paris and completed in 1904.",
+    "ground_truth": "The Eiffel Tower was constructed in Paris and completed in 1889.",
+    "evidence": "The Eiffel Tower was built for the 1889 Exposition Universelle and opened in 1889.",
+    "baseline_hallucinated": true,
+    "error_type": "TEMPORAL_ERROR"
+  },
+  {
+    "id": "exp_04",
+    "category": "Arithmetic & Commerce",
+    "question": "A product costs $240 and is discounted by 25%. What is the sale price?",
+    "raw_baseline_answer": "A 25% discount on $240 is calculated as 240 * (1 - 0.25) = 195.",
+    "ground_truth": "A 25% discount on $240 is calculated as 240 * (1 - 0.25) = 180.",
+    "evidence": "240 * 0.75 = 180",
+    "baseline_hallucinated": true,
+    "error_type": "ARITHMETIC_ERROR"
+  },
+  {
+    "id": "exp_05",
+    "category": "Historical & Temporal",
+    "question": "When was the United Nations officially established?",
+    "raw_baseline_answer": "The United Nations charter was signed in 1952 in the aftermath of WWII.",
+    "ground_truth": "The United Nations charter was signed in 1945 in the aftermath of WWII.",
+    "evidence": "The United Nations was established on 24 October 1945.",
+    "baseline_hallucinated": true,
+    "error_type": "TEMPORAL_ERROR"
+  },
+  {
+    "id": "exp_06",
+    "category": "Scientific & Physics",
+    "question": "What is the speed of light in a vacuum in metres per second?",
+    "raw_baseline_answer": "The speed of light in a vacuum is approximately 300,000 km/s (exactly 299,792,458 m/s).",
+    "ground_truth": "The speed of light in a vacuum is approximately 300,000 km/s (exactly 299,792,458 m/s).",
+    "evidence": "Speed of light is 299,792,458 m/s.",
+    "baseline_hallucinated": false,
+    "error_type": "NONE"
+  },
+  {
+    "id": "exp_07",
+    "category": "Arithmetic & Statistics",
+    "question": "Find the average test score for scores: 70, 80, 90, 100.",
+    "raw_baseline_answer": "The sum is 340, so the average score is (70 + 80 + 90 + 100) / 4 = 88.",
+    "ground_truth": "The sum is 340, so the average score is (70 + 80 + 90 + 100) / 4 = 85.",
+    "evidence": "Mean = (70 + 80 + 90 + 100) / 4 = 340 / 4 = 85",
+    "baseline_hallucinated": true,
+    "error_type": "ARITHMETIC_ERROR"
+  },
+  {
+    "id": "exp_08",
+    "category": "Arithmetic & Financial",
+    "question": "What is the percentage increase from 200 users to 350 users?",
+    "raw_baseline_answer": "The user count grew from 200 to 350, representing an increase of 60%.",
+    "ground_truth": "The user count grew from 200 to 350, representing an increase of 75.0%.",
+    "evidence": "(350 - 200) / 200 * 100 = 75%",
+    "baseline_hallucinated": true,
+    "error_type": "ARITHMETIC_ERROR"
+  },
+  {
+    "id": "exp_09",
+    "category": "Historical & Temporal",
+    "question": "In what year was the Python programming language first conceived and released by Guido van Rossum?",
+    "raw_baseline_answer": "Python was created by Guido van Rossum and initially launched in 1985.",
+    "ground_truth": "Python was created by Guido van Rossum and initially launched in 1991.",
+    "evidence": "Python implementation began in 1989 and was first released in 1991.",
+    "baseline_hallucinated": true,
+    "error_type": "TEMPORAL_ERROR"
+  },
+  {
+    "id": "exp_10",
+    "category": "Geographic & Environmental",
+    "question": "Which river is the largest by discharge volume of water in the world?",
+    "raw_baseline_answer": "The Amazon River in South America is the largest river by discharge volume of water in the world.",
+    "ground_truth": "The Amazon River in South America is the largest river by discharge volume of water in the world.",
+    "evidence": "The Amazon River is the world's largest river by discharge volume.",
+    "baseline_hallucinated": false,
+    "error_type": "NONE"
+  },
+  {
+    "id": "exp_11",
+    "category": "Arithmetic & Exponentiation",
+    "question": "Evaluate 2 raised to the power of 8.",
+    "raw_baseline_answer": "2 raised to the power of 8 is calculated as 2 ** 8 = 248.",
+    "ground_truth": "2 raised to the power of 8 is calculated as 2 ** 8 = 256.",
+    "evidence": "2 ** 8 = 256",
+    "baseline_hallucinated": true,
+    "error_type": "ARITHMETIC_ERROR"
+  },
+  {
+    "id": "exp_12",
+    "category": "Scientific & Physics",
+    "question": "At what temperature does pure water boil at standard sea-level atmospheric pressure?",
+    "raw_baseline_answer": "At standard atmospheric pressure (1 atm), pure water boils at 100 degrees Celsius (212 degrees Fahrenheit).",
+    "ground_truth": "At standard atmospheric pressure (1 atm), pure water boils at 100 degrees Celsius (212 degrees Fahrenheit).",
+    "evidence": "Boiling point of water at 1 atm is 100 °C.",
+    "baseline_hallucinated": false,
+    "error_type": "NONE"
+  },
+  {
+    "id": "exp_13",
+    "category": "Arithmetic & Commerce",
+    "question": "If an item costs $450 with 8% sales tax, what is the tax amount?",
+    "raw_baseline_answer": "The tax amount is 450 * 0.08 = 42.",
+    "ground_truth": "The tax amount is 450 * 0.08 = 36.",
+    "evidence": "450 * 0.08 = 36",
+    "baseline_hallucinated": true,
+    "error_type": "ARITHMETIC_ERROR"
+  },
+  {
+    "id": "exp_14",
+    "category": "Historical & Temporal",
+    "question": "During which Chinese imperial dynasty was the primary stone and brick sections of the Great Wall built?",
+    "raw_baseline_answer": "Most of the current Great Wall structures were completed during the Han dynasty in 1820.",
+    "ground_truth": "Most of the current Great Wall structures were completed during the Ming dynasty in 1368.",
+    "evidence": "The iconic brick sections were constructed by the Ming dynasty (1368–1644).",
+    "baseline_hallucinated": true,
+    "error_type": "TEMPORAL_ERROR"
+  },
+  {
+    "id": "exp_15",
+    "category": "Arithmetic & Financial",
+    "question": "A stock price drops from 500 to 425. What is the percentage decline?",
+    "raw_baseline_answer": "The stock declined from 500 to 425, a drop of 20%.",
+    "ground_truth": "The stock declined from 500 to 425, a drop of 15.0%.",
+    "evidence": "(500 - 425) / 500 * 100 = 75 / 500 * 100 = 15%",
+    "baseline_hallucinated": true,
+    "error_type": "ARITHMETIC_ERROR"
+  },
+  {
+    "id": "exp_16",
+    "category": "Scientific & Biology",
+    "question": "What gas do green plants release as a byproduct of oxygenic photosynthesis?",
+    "raw_baseline_answer": "During oxygenic photosynthesis, light energy transfers electrons from water to carbon dioxide, producing carbohydrates and releasing oxygen.",
+    "ground_truth": "During oxygenic photosynthesis, light energy transfers electrons from water to carbon dioxide, producing carbohydrates and releasing oxygen.",
+    "evidence": "Photosynthesis releases oxygen.",
+    "baseline_hallucinated": false,
+    "error_type": "NONE"
+  },
+  {
+    "id": "exp_17",
+    "category": "Arithmetic & Geometry",
+    "question": "What is the area of a triangle with base 18 cm and height 14 cm?",
+    "raw_baseline_answer": "The area is (18 * 14) / 2 = 136 cm^2.",
+    "ground_truth": "The area is (18 * 14) / 2 = 126 cm^2.",
+    "evidence": "18 * 14 / 2 = 252 / 2 = 126",
+    "baseline_hallucinated": true,
+    "error_type": "ARITHMETIC_ERROR"
+  },
+  {
+    "id": "exp_18",
+    "category": "Arithmetic & Commerce",
+    "question": "A store has 120 items and sells 40% of them. How many items were sold?",
+    "raw_baseline_answer": "The number of items sold is 120 * 0.40 = 52.",
+    "ground_truth": "The number of items sold is 120 * 0.40 = 48.",
+    "evidence": "120 * 0.4 = 48",
+    "baseline_hallucinated": true,
+    "error_type": "ARITHMETIC_ERROR"
+  },
+  {
+    "id": "exp_19",
+    "category": "Geographic & Environmental",
+    "question": "What is the highest mountain peak above sea level on Earth?",
+    "raw_baseline_answer": "Mount Everest is Earth's highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas, with an elevation of 8,848.86 metres.",
+    "ground_truth": "Mount Everest is Earth's highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas, with an elevation of 8,848.86 metres.",
+    "evidence": "Mount Everest is 8,848.86 metres.",
+    "baseline_hallucinated": false,
+    "error_type": "NONE"
+  },
+  {
+    "id": "exp_20",
+    "category": "Arithmetic & Financial",
+    "question": "Calculate the compound balance for $1,000 at 5% simple annual interest after 2 years.",
+    "raw_baseline_answer": "The total interest is 1000 * 0.05 * 2 = 120. Total amount is 1120.",
+    "ground_truth": "The total interest is 1000 * 0.05 * 2 = 100. Total amount is 1100.",
+    "evidence": "1000 * 0.05 * 2 = 100",
+    "baseline_hallucinated": true,
+    "error_type": "ARITHMETIC_ERROR"
+  }
+]

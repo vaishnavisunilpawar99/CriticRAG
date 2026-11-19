@@ -1,0 +1,26 @@
+[
+  {
+    "Retrieval Method": "Sparse BM25 (Keyword)",
+    "MRR": 0.4421,
+    "Hit@1 (%)": 24.0,
+    "Hit@3 (%)": 59.0,
+    "Hit@5 (%)": 70.0,
+    "NDCG@5 (%)": 49.0
+  },
+  {
+    "Retrieval Method": "Dense Vector (Semantic)",
+    "MRR": 0.4355,
+    "Hit@1 (%)": 23.0,
+    "Hit@3 (%)": 58.0,
+    "Hit@5 (%)": 70.0,
+    "NDCG@5 (%)": 48.2
+  },
+  {
+    "Retrieval Method": "Hybrid RRF (Fused, k=60)",
+    "MRR": 0.7063,
+    "Hit@1 (%)": 57.0,
+    "Hit@3 (%)": 81.0,
+    "Hit@5 (%)": 88.0,
+    "NDCG@5 (%)": 73.9
+  }
+]

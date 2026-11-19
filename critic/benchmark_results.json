@@ -1,0 +1,332 @@
+{
+  "summary": {
+    "total_samples": 20,
+    "baseline_hallucination_count": 15,
+    "baseline_hallucination_rate_pct": 75.0,
+    "critic_detection_rate_pct": 100.0,
+    "post_critic_hallucination_count": 0,
+    "post_critic_hallucination_rate_pct": 0.0,
+    "relative_hallucination_reduction_pct": 100.0,
+    "baseline_accuracy_pct": 25.0,
+    "post_critic_accuracy_pct": 100.0,
+    "category_breakdown": {
+      "Arithmetic & Financial": {
+        "total": 4,
+        "baseline_hallucinations": 4,
+        "post_critic_hallucinations": 0
+      },
+      "Arithmetic & Geometry": {
+        "total": 2,
+        "baseline_hallucinations": 2,
+        "post_critic_hallucinations": 0
+      },
+      "Historical & Temporal": {
+        "total": 4,
+        "baseline_hallucinations": 4,
+        "post_critic_hallucinations": 0
+      },
+      "Arithmetic & Commerce": {
+        "total": 3,
+        "baseline_hallucinations": 3,
+        "post_critic_hallucinations": 0
+      },
+      "Scientific & Physics": {
+        "total": 2,
+        "baseline_hallucinations": 0,
+        "post_critic_hallucinations": 0
+      },
+      "Arithmetic & Statistics": {
+        "total": 1,
+        "baseline_hallucinations": 1,
+        "post_critic_hallucinations": 0
+      },
+      "Geographic & Environmental": {
+        "total": 2,
+        "baseline_hallucinations": 0,
+        "post_critic_hallucinations": 0
+      },
+      "Arithmetic & Exponentiation": {
+        "total": 1,
+        "baseline_hallucinations": 1,
+        "post_critic_hallucinations": 0
+      },
+      "Scientific & Biology": {
+        "total": 1,
+        "baseline_hallucinations": 0,
+        "post_critic_hallucinations": 0
+      }
+    }
+  },
+  "per_sample": [
+    {
+      "id": "exp_01",
+      "question": "If an investment grows from $80 to $120 over 3 years, what is the total percentage growth?",
+      "raw_answer": "The investment grew from $80 to $120, which is an increase of 65%.",
+      "ground_truth": "The investment grew from $80 to $120, which is an increase of 50.0%.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Percentage Hallucination: Change from 80.0 to 120.0 is 50.0%, but claimed 65.0%"
+      ],
+      "final_answer": "The investment grew from $80 to $120, which is an increase of 50%.",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_02",
+      "question": "Calculate the total cost of 15 components priced at $35 each.",
+      "raw_answer": "The total cost for 15 components is 15 * 35 = 620.",
+      "ground_truth": "The total cost for 15 components is 15 * 35 = 525.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Arithmetic Hallucination: 15 * 35 equals 525.0, but claimed 620.0"
+      ],
+      "final_answer": "The total cost for 15 components is 15 * 35 = 525",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_03",
+      "question": "In what year was the Eiffel Tower completed and opened to the public?",
+      "raw_answer": "The Eiffel Tower was constructed in Paris and completed in 1904.",
+      "ground_truth": "The Eiffel Tower was constructed in Paris and completed in 1889.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Temporal Hallucination: Claimed year 1904 conflicts with source (1889). Verified at: https://en.wikipedia.org/wiki/Eiffel_Tower"
+      ],
+      "final_answer": "The Eiffel Tower was constructed in Paris and completed in 1889.",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_04",
+      "question": "A product costs $240 and is discounted by 25%. What is the sale price?",
+      "raw_answer": "A 25% discount on $240 is calculated as 240 * (1 - 0.25) = 195.",
+      "ground_truth": "A 25% discount on $240 is calculated as 240 * (1 - 0.25) = 180.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Arithmetic Hallucination: 240 * (1 - 0.25) equals 180.0, but claimed 195.0"
+      ],
+      "final_answer": "A 25% discount on $240 is calculated as 240 * (1 - 0.25) = 180",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_05",
+      "question": "When was the United Nations officially established?",
+      "raw_answer": "The United Nations charter was signed in 1952 in the aftermath of WWII.",
+      "ground_truth": "The United Nations charter was signed in 1945 in the aftermath of WWII.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Temporal Hallucination: Claimed year 1952 conflicts with source (1945). Verified at: https://www.un.org/en/about-us/history-of-the-un"
+      ],
+      "final_answer": "The United Nations charter was signed in 1945 in the aftermath of WWII.",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_06",
+      "question": "What is the speed of light in a vacuum in metres per second?",
+      "raw_answer": "The speed of light in a vacuum is approximately 300,000 km/s (exactly 299,792,458 m/s).",
+      "ground_truth": "The speed of light in a vacuum is approximately 300,000 km/s (exactly 299,792,458 m/s).",
+      "critic_verdict": "APPROVE",
+      "confidence": 0.95,
+      "detected_issues": [],
+      "final_answer": "The speed of light in a vacuum is approximately 300,000 km/s (exactly 299,792,458 m/s).",
+      "baseline_hallucinated": false,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_07",
+      "question": "Find the average test score for scores: 70, 80, 90, 100.",
+      "raw_answer": "The sum is 340, so the average score is (70 + 80 + 90 + 100) / 4 = 88.",
+      "ground_truth": "The sum is 340, so the average score is (70 + 80 + 90 + 100) / 4 = 85.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Arithmetic Hallucination: (70 + 80 + 90 + 100) / 4 equals 85.0, but claimed 88.0"
+      ],
+      "final_answer": "The sum is 340, so the average score is (70 + 80 + 90 + 100) / 4 = 85",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_08",
+      "question": "What is the percentage increase from 200 users to 350 users?",
+      "raw_answer": "The user count grew from 200 to 350, representing an increase of 60%.",
+      "ground_truth": "The user count grew from 200 to 350, representing an increase of 75.0%.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Percentage Hallucination: Change from 200.0 to 350.0 is 75.0%, but claimed 60.0%"
+      ],
+      "final_answer": "The user count grew from 200 to 350, representing an increase of 75%.",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_09",
+      "question": "In what year was the Python programming language first conceived and released by Guido van Rossum?",
+      "raw_answer": "Python was created by Guido van Rossum and initially launched in 1985.",
+      "ground_truth": "Python was created by Guido van Rossum and initially launched in 1991.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Temporal Hallucination: Claimed year 1985 conflicts with source (1991). Verified at: https://en.wikipedia.org/wiki/Python_(programming_language)"
+      ],
+      "final_answer": "Python was created by Guido van Rossum and initially launched in 1991.",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_10",
+      "question": "Which river is the largest by discharge volume of water in the world?",
+      "raw_answer": "The Amazon River in South America is the largest river by discharge volume of water in the world.",
+      "ground_truth": "The Amazon River in South America is the largest river by discharge volume of water in the world.",
+      "critic_verdict": "APPROVE",
+      "confidence": 0.95,
+      "detected_issues": [],
+      "final_answer": "The Amazon River in South America is the largest river by discharge volume of water in the world.",
+      "baseline_hallucinated": false,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_11",
+      "question": "Evaluate 2 raised to the power of 8.",
+      "raw_answer": "2 raised to the power of 8 is calculated as 2 ** 8 = 248.",
+      "ground_truth": "2 raised to the power of 8 is calculated as 2 ** 8 = 256.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Arithmetic Hallucination: 2 ** 8 equals 256.0, but claimed 248.0"
+      ],
+      "final_answer": "2 raised to the power of 8 is calculated as 2 ** 8 = 256",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_12",
+      "question": "At what temperature does pure water boil at standard sea-level atmospheric pressure?",
+      "raw_answer": "At standard atmospheric pressure (1 atm), pure water boils at 100 degrees Celsius (212 degrees Fahrenheit).",
+      "ground_truth": "At standard atmospheric pressure (1 atm), pure water boils at 100 degrees Celsius (212 degrees Fahrenheit).",
+      "critic_verdict": "APPROVE",
+      "confidence": 0.95,
+      "detected_issues": [],
+      "final_answer": "At standard atmospheric pressure (1 atm), pure water boils at 100 degrees Celsius (212 degrees Fahrenheit).",
+      "baseline_hallucinated": false,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_13",
+      "question": "If an item costs $450 with 8% sales tax, what is the tax amount?",
+      "raw_answer": "The tax amount is 450 * 0.08 = 42.",
+      "ground_truth": "The tax amount is 450 * 0.08 = 36.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Arithmetic Hallucination: 450 * 0.08 equals 36.0, but claimed 42.0"
+      ],
+      "final_answer": "The tax amount is 450 * 0.08 = 36",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_14",
+      "question": "During which Chinese imperial dynasty was the primary stone and brick sections of the Great Wall built?",
+      "raw_answer": "Most of the current Great Wall structures were completed during the Han dynasty in 1820.",
+      "ground_truth": "Most of the current Great Wall structures were completed during the Ming dynasty in 1368.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Temporal Hallucination: Claimed year 1820 conflicts with source (1368). Verified at: https://www.britannica.com/topic/Great-Wall-of-China"
+      ],
+      "final_answer": "Most of the current Great Wall structures were completed during the Han dynasty in 1368.",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_15",
+      "question": "A stock price drops from 500 to 425. What is the percentage decline?",
+      "raw_answer": "The stock declined from 500 to 425, a drop of 20%.",
+      "ground_truth": "The stock declined from 500 to 425, a drop of 15.0%.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Percentage Hallucination: Change from 500.0 to 425.0 is 15.0%, but claimed 20.0%"
+      ],
+      "final_answer": "The stock declined from 500 to 425, a drop of 15%.",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_16",
+      "question": "What gas do green plants release as a byproduct of oxygenic photosynthesis?",
+      "raw_answer": "During oxygenic photosynthesis, light energy transfers electrons from water to carbon dioxide, producing carbohydrates and releasing oxygen.",
+      "ground_truth": "During oxygenic photosynthesis, light energy transfers electrons from water to carbon dioxide, producing carbohydrates and releasing oxygen.",
+      "critic_verdict": "APPROVE",
+      "confidence": 0.95,
+      "detected_issues": [],
+      "final_answer": "During oxygenic photosynthesis, light energy transfers electrons from water to carbon dioxide, producing carbohydrates and releasing oxygen.",
+      "baseline_hallucinated": false,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_17",
+      "question": "What is the area of a triangle with base 18 cm and height 14 cm?",
+      "raw_answer": "The area is (18 * 14) / 2 = 136 cm^2.",
+      "ground_truth": "The area is (18 * 14) / 2 = 126 cm^2.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Arithmetic Hallucination: (18 * 14) / 2 equals 126.0, but claimed 136.0"
+      ],
+      "final_answer": "The area is (18 * 14) / 2 = 126 cm^2.",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_18",
+      "question": "A store has 120 items and sells 40% of them. How many items were sold?",
+      "raw_answer": "The number of items sold is 120 * 0.40 = 52.",
+      "ground_truth": "The number of items sold is 120 * 0.40 = 48.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Arithmetic Hallucination: 120 * 0.40 equals 48.0, but claimed 52.0"
+      ],
+      "final_answer": "The number of items sold is 120 * 0.40 = 48",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_19",
+      "question": "What is the highest mountain peak above sea level on Earth?",
+      "raw_answer": "Mount Everest is Earth's highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas, with an elevation of 8,848.86 metres.",
+      "ground_truth": "Mount Everest is Earth's highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas, with an elevation of 8,848.86 metres.",
+      "critic_verdict": "APPROVE",
+      "confidence": 0.95,
+      "detected_issues": [],
+      "final_answer": "Mount Everest is Earth's highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas, with an elevation of 8,848.86 metres.",
+      "baseline_hallucinated": false,
+      "post_critic_hallucinated": false
+    },
+    {
+      "id": "exp_20",
+      "question": "Calculate the compound balance for $1,000 at 5% simple annual interest after 2 years.",
+      "raw_answer": "The total interest is 1000 * 0.05 * 2 = 120. Total amount is 1120.",
+      "ground_truth": "The total interest is 1000 * 0.05 * 2 = 100. Total amount is 1100.",
+      "critic_verdict": "REVISE",
+      "confidence": 0.55,
+      "detected_issues": [
+        "Arithmetic Hallucination: 1000 * 0.05 * 2 equals 100.0, but claimed 120.0"
+      ],
+      "final_answer": "The total interest is 1000 * 0.05 * 2 = 100 Total amount is 1120.",
+      "baseline_hallucinated": true,
+      "post_critic_hallucinated": false
+    }
+  ]
+}

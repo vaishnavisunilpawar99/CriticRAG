@@ -1,0 +1,12 @@
+[
+  {"id": "q1", "question": "Who designed the Eiffel Tower?", "gold_answers": ["Gustave Eiffel"]},
+  {"id": "q2", "question": "What is the tallest mountain on Earth?", "gold_answers": ["Mount Everest", "Everest"]},
+  {"id": "q3", "question": "At what temperature in Celsius does water boil?", "gold_answers": ["100", "100 degrees Celsius"]},
+  {"id": "q4", "question": "Who created the Python programming language?", "gold_answers": ["Guido van Rossum"]},
+  {"id": "q5", "question": "During which dynasty was most of the Great Wall of China built?", "gold_answers": ["Ming dynasty", "Ming"]},
+  {"id": "q6", "question": "What gas do plants release during photosynthesis?", "gold_answers": ["Oxygen"]},
+  {"id": "q7", "question": "Which river is the largest by discharge volume in the world?", "gold_answers": ["Amazon River", "Amazon"]},
+  {"id": "q8", "question": "Who painted the Mona Lisa?", "gold_answers": ["Leonardo da Vinci"]},
+  {"id": "q9", "question": "What is the speed of light in a vacuum in metres per second?", "gold_answers": ["299,792,458", "299792458"]},
+  {"id": "q10", "question": "In what year was the United Nations founded?", "gold_answers": ["1945"]}
+]

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CriticRAG AI — Multi-Agent Reasoning & Self-Correction Dashboard</title>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Chart.js for benchmark visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- Top Header & Navigation Bar -->
+    <header class="navbar">
+      <div class="navbar-brand">
+        <div class="logo-icon">
+          <i data-lucide="shield-check"></i>
+        </div>
+        <div class="brand-text">
+          <h1>CriticRAG AI</h1>
+          <span class="sub-title">Trustworthy Multi-Agent Reasoning & Audit</span>
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <!-- Live LED Status Indicator -->
+        <div class="status-badge" id="statusBadge">
+          <span class="status-dot pulsing" id="statusDot"></span>
+          <span class="status-text" id="statusText">Checking system...</span>
+        </div>
+
+        <div class="system-pill" id="providerPill">
+          <i data-lucide="cpu"></i>
+          <span id="providerText">Provider: --</span>
+        </div>
+
+        <div class="system-pill" id="modelPill">
+          <i data-lucide="layers"></i>
+          <span id="modelText">Model: --</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <main class="workspace-grid">
+
+      <!-- Left Panel: Controls, Inputs & Evidence Inspector -->
+      <aside class="control-panel">
+
+        <!-- Query Input Card -->
+        <section class="glass-card">
+          <div class="card-header">
+            <h3><i data-lucide="search"></i> Ask Question</h3>
+            <span class="badge-accent">RAG Engine</span>
+          </div>
+
+          <div class="input-group">
+            <label for="questionInput">User Question</label>
+            <textarea id="questionInput" rows="3"
+              placeholder="Type your open-domain question here... (e.g. Who designed the Eiffel Tower?)"></textarea>
+          </div>
+
+          <!-- Quick Preset Pills -->
+          <div class="preset-section">
+            <span class="preset-label">Sample Queries:</span>
+            <div class="preset-pills">
+              <button class="preset-btn" onclick="setPresetQuery('Who designed the Eiffel Tower?')">Eiffel
+                Tower</button>
+              <button class="preset-btn" onclick="setPresetQuery('What is the boiling point of water?')">Water
+                Boiling</button>
+              <button class="preset-btn" onclick="setPresetQuery('Who painted the Mona Lisa?')">Mona Lisa</button>
+              <button class="preset-btn" onclick="setPresetQuery('What is the speed of light?')">Speed of Light</button>
+            </div>
+          </div>
+
+          <!-- Retriever Type Selector -->
+          <div class="input-group">
+            <label for="retrieverSelect">Retriever Backend Engine</label>
+            <select id="retrieverSelect">
+              <option value="vector" selected>Vector DB (Cosine Similarity)</option>
+              <option value="hybrid">Hybrid RAG (Reciprocal Rank Fusion)</option>
+              <option value="web">Live Web Search (DuckDuckGo / Tavily)</option>
+              <option value="local">Sparse Keyword Overlap</option>
+            </select>
+          </div>
+
+          <!-- Parameters Sliders -->
+          <div class="params-grid">
+            <div class="param-box">
+              <div class="param-label">
+                <span>Max Iterations</span>
+                <span class="param-value" id="maxIterVal">3</span>
+              </div>
+              <input type="range" id="maxIterSlider" min="1" max="5" value="3"
+                oninput="document.getElementById('maxIterVal').innerText = this.value">
+            </div>
+
+            <div class="param-box">
+              <div class="param-label">
+                <span>Confidence Stop</span>
+                <span class="param-value" id="confStopVal">0.85</span>
+              </div>
+              <input type="range" id="confStopSlider" min="0.50" max="1.00" step="0.05" value="0.85"
+                oninput="document.getElementById('confStopVal').innerText = parseFloat(this.value).toFixed(2)">
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button class="btn btn-primary" id="askBtn" onclick="handleAskQuestion()">
+              <i data-lucide="sparkles"></i> Run Agentic QA Loop
+            </button>
+            <button class="btn btn-secondary" id="evalBtn" onclick="handleRunEval()">
+              <i data-lucide="bar-chart-2"></i> Run Benchmark Eval
+            </button>
+          </div>
+        </section>
+
+        <!-- Evidence Inspector Card -->
+        <section class="glass-card evidence-card">
+          <div class="card-header">
+            <h3><i data-lucide="book-open"></i> Retrieved Evidence</h3>
+            <span class="badge-muted" id="evidenceCountBadge">0 Passages</span>
+          </div>
+
+          <div class="evidence-list" id="evidenceList">
+            <div class="empty-state">
+              <i data-lucide="inbox"></i>
+              <p>No query executed yet. Run a question to inspect retrieved context passages.</p>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Right Main Panel: Trace Visualizer & Benchmark Dashboard -->
+      <section class="main-display">
+
+        <!-- View Toggle Tabs -->
+        <div class="view-tabs">
+          <button class="tab-btn active" id="traceTabBtn" onclick="switchView('trace')">
+            <i data-lucide="git-commit"></i> Agent Reasoning Trace
+          </button>
+          <button class="tab-btn" id="evalTabBtn" onclick="switchView('eval')">
+            <i data-lucide="award"></i> Benchmark Evaluation Report
+          </button>
+        </div>
+
+        <!-- 1. Multi-Agent Reasoning Trace View -->
+        <div class="tab-content active" id="traceView">
+
+          <!-- Welcome Placeholder -->
+          <div id="traceWelcome" class="welcome-box glass-card">
+            <div class="welcome-icon">
+              <i data-lucide="shield-check"></i>
+            </div>
+            <h2>Iterative Multi-Agent Self-Correction</h2>
+            <p>CriticRAG AI combines three specialized AI agents: a <strong>Generator</strong> that answers using
+              retrieved evidence, a <strong>Critic</strong> that fact-checks for hallucinations, and a
+              <strong>Refiner</strong> that revises flawed outputs.
+            </p>
+            <div class="welcome-features">
+              <div class="feature-item">
+                <i data-lucide="check-circle-2"></i>
+                <span>Grounded Evidence Attribution</span>
+              </div>
+              <div class="feature-item">
+                <i data-lucide="shield-alert"></i>
+                <span>Independent Hallucination Audit</span>
+              </div>
+              <div class="feature-item">
+                <i data-lucide="refresh-cw"></i>
+                <span>Feedback-Driven Refinement</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Loading Spinner -->
+          <div id="traceLoading" class="loading-box glass-card hidden">
+            <div class="spinner"></div>
+            <p id="loadingMsg">Executing Multi-Agent Reasoning Loop...</p>
+          </div>
+
+          <!-- Trace Execution Results -->
+          <div id="traceResults" class="hidden">
+
+            <!-- Final Converged Banner -->
+            <div class="final-banner glass-card" id="finalBanner">
+              <div class="banner-status">
+                <i data-lucide="check-circle" id="finalBannerIcon"></i>
+                <div>
+                  <h3 id="finalAnswerText">Final Answer</h3>
+                  <p id="finalMetaText">Converged after 1 iteration</p>
+                </div>
+              </div>
+              <div class="banner-badge" id="finalVerdictBadge">APPROVE</div>
+            </div>
+
+            <!-- Retrieval Warning Banner (shown only when no evidence was found) -->
+            <div class="retrieval-warning-banner glass-card hidden" id="retrievalWarningBanner">
+              <i data-lucide="alert-triangle"></i>
+              <p id="retrievalWarningText"></p>
+            </div>
+
+            <!-- Iteration Steps Timeline Header -->
+            <div class="iteration-tabs" id="iterationTabContainer">
+              <!-- Dynamically populated iteration tab buttons -->
+            </div>
+
+            <!-- Iteration Step Detail View -->
+            <div class="iteration-detail-container" id="iterationDetailContainer">
+              <!-- Dynamically rendered Generator, Critic, and Refiner cards -->
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- 2. Benchmark Evaluation Report View -->
+        <div class="tab-content hidden" id="evalView">
+
+          <!-- Eval Loading -->
+          <div id="evalLoading" class="loading-box glass-card hidden">
+            <div class="spinner"></div>
+            <p>Running benchmark comparison across sample dataset...</p>
+          </div>
+
+          <div id="evalResults" class="eval-container hidden">
+
+            <!-- Top Metric Cards Row -->
+            <div class="metrics-grid">
+              <div class="metric-card glass-card">
+                <div class="metric-title">Exact Match (EM)</div>
+                <div class="metric-values">
+                  <div class="metric-block">
+                    <span class="metric-label">Baseline</span>
+                    <span class="metric-num" id="baselineEmVal">0%</span>
+                  </div>
+                  <div class="metric-arrow"><i data-lucide="arrow-right"></i></div>
+                  <div class="metric-block highlight">
+                    <span class="metric-label">Critic Loop</span>
+                    <span class="metric-num" id="loopEmVal">0%</span>
+                  </div>
+                </div>
+                <div class="metric-delta positive" id="emDeltaBadge">+0.0% Improvement</div>
+              </div>
+
+              <div class="metric-card glass-card">
+                <div class="metric-title">Token F1 Score</div>
+                <div class="metric-values">
+                  <div class="metric-block">
+                    <span class="metric-label">Baseline</span>
+                    <span class="metric-num" id="baselineF1Val">0%</span>
+                  </div>
+                  <div class="metric-arrow"><i data-lucide="arrow-right"></i></div>
+                  <div class="metric-block highlight">
+                    <span class="metric-label">Critic Loop</span>
+                    <span class="metric-num" id="loopF1Val">0%</span>
+                  </div>
+                </div>
+                <div class="metric-delta positive" id="f1DeltaBadge">+0.0% Improvement</div>
+              </div>
+
+              <div class="metric-card glass-card">
+                <div class="metric-title">Loop Efficiency</div>
+                <div class="metric-stat">
+                  <span class="stat-num" id="avgItersVal">0.00</span>
+                  <span class="stat-desc">Avg Iterations / Query</span>
+                </div>
+                <div class="metric-subtext" id="changeRateText">Answer Revision Rate: 0%</div>
+              </div>
+            </div>
+
+            <!-- Chart.js Visualization -->
+            <div class="chart-card glass-card">
+              <div class="card-header">
+                <h3><i data-lucide="bar-chart-3"></i> Baseline vs. Critic Loop Benchmark Comparison</h3>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="evalChart"></canvas>
+              </div>
+            </div>
+
+            <!-- Dataset Results Breakdown Table -->
+            <div class="table-card glass-card">
+              <div class="card-header">
+                <h3><i data-lucide="list"></i> Dataset Performance Breakdown</h3>
+              </div>
+              <div class="table-wrapper">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Question</th>
+                      <th>Baseline Answer</th>
+                      <th>Critic Loop Answer</th>
+                      <th>Ground Truth</th>
+                      <th>EM Result</th>
+                      <th>Iterations</th>
+                    </tr>
+                  </thead>
+                  <tbody id="evalTableBody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+
+</html>

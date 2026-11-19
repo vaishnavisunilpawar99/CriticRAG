@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  # Default: run the baseline-vs-loop evaluation harness.
+  # docker compose run --rm agentic-loop-qa
+  # docker compose run --rm agentic-loop-qa ask "Who designed the Eiffel Tower?"
+  agentic-loop-qa:
+    build: .
+    image: agentic-loop-qa:latest
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      # Uncomment / set in a real .env instead of committing secrets here.
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+    volumes:
+      # Write --out reports to the host, and let a custom corpus/dataset be
+      # mounted in without rebuilding the image.
+      - ./reports:/app/reports
+    command: ["eval", "--out", "/app/reports/report.json"]
+
+  # docker compose run --rm test
+  test:
+    build: .
+    image: agentic-loop-qa:latest
+    entrypoint: ["python", "-m", "pytest", "-q"]
+    command: []
